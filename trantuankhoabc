@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Trần Tuấn Khoa | ERP & IT Specialist</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CẤU HÌNH TRANG IN CHUẨN A4 --- */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #0366d6; /* Màu xanh GitHub */
+            --text-color: #24292e;
+            --bg-gray: #f6f8fa;
+            --border-line: #e1e4e8;
+            --code-bg: #f3f4f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2b2b2b; /* Nền tối cho giao diện web */
+            font-family: 'Roboto', sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            padding-bottom: 50px;
+        }
+
+        /* Khung giấy A4 */
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 0 auto 30px auto; /* Khoảng cách giữa các trang trên web */
+            padding: 12mm 15mm 15mm 15mm;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Đổ bóng sâu hơn cho web */
+        }
+
+        /* --- CONTROLS CHO WEB (ẨN KHI IN) --- */
+        .control-panel {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999;
+        }
+
+        .btn-control {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .btn-control:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Tooltip */
+        .btn-control::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 60px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .btn-control:hover::after {
+            opacity: 1;
+        }
+
+        .btn-print { background-color: #27ae60; }
+        .btn-pdf { background-color: #e74c3c; }
+        .btn-top { background-color: #34495e; }
+
+
+        /* --- FOOTER (BẢN QUYỀN & SỐ TRANG) --- */
+        .page-footer {
+            position: absolute;
+            bottom: 10mm;
+            left: 15mm;
+            right: 15mm;
+            border-top: 1px solid #eee;
+            padding-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #888;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .copyright { font-style: italic; }
+        .page-number { font-weight: bold; }
+
+        /* --- CV STYLES --- */
+        header {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 12px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 22pt;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+            letter-spacing: -1px;
+            font-weight: 700;
+        }
+
+        .job-title {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 12pt;
+            color: var(--accent-color);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 9pt;
+            color: #586069;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .contact-info span { display: flex; align-items: center; }
+
+        h2 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11pt;
+            color: white;
+            background-color: var(--primary-color);
+            padding: 6px 10px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .job-item {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border-line);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+        }
+
+        .company-merged-title {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 700;
+            font-size: 11pt;
+            color: #000;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 4px;
+        }
+
+        .company {
+            font-weight: 700;
+            font-size: 10.5pt;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .origin-badge {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 8pt;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 0px 6px;
+            margin-left: 8px;
+            color: #555;
+            white-space: nowrap;
+        }
+
+        .company-address {
+            font-weight: 400;
+            color: #666;
+            font-size: 9pt;
+            margin-top: 2px;
+            display: block;
+            font-style: italic;
+        }
+
+        .duration-team {
+            text-align: right;
+            min-width: 140px;
+        }
+
+        .duration {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 8.5pt;
+            color: #6a737d;
+            display: block;
+        }
+        
+        .team-size {
+            font-size: 8.5pt;
+            color: var(--accent-color);
+            font-weight: 500;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .sub-role {
+            margin-left: 0;
+            padding-left: 15px;
+            border-left: 2px solid var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .position {
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 10pt;
+            margin-bottom: 3px;
+        }
+
+        .project-desc {
+            background-color: var(--bg-gray);
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin: 6px 0;
+            font-size: 9.5pt;
+            text-align: justify;
+            border: 1px solid #e1e4e8;
+        }
+
+        .section-sub-title {
+            font-weight: 600;
+            font-size: 9.5pt;
+            margin-top: 6px;
+            margin-bottom: 3px;
+            color: #24292e;
+        }
+
+        ul { margin: 4px 0 8px 18px; padding: 0; }
+        li { margin-bottom: 3px; text-align: justify; }
+
+        /* Skills */
+        .skills-grid {
+            display: table;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 6px;
+        }
+        .skill-row { display: table-row; }
+        .skill-label {
+            display: table-cell;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 600;
+            width: 140px;
+            color: var(--primary-color);
+            vertical-align: top;
+            font-size: 9pt;
+            padding-top: 4px;
+        }
+        .skill-content {
+            display: table-cell;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 9pt;
+            color: #333;
+        }
+        
+        .tech-tag {
+            background-color: var(--code-bg);
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid #e1e4e8;
+            display: inline-block;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            font-size: 8.5pt;
+        }
+        
+        .soft-tag {
+            background-color: #e6fffa;
+            border-color: #b2f5ea;
+            color: #2c7a7b;
+        }
+
+        .education-item { display: flex; justify-content: space-between; }
+
+        /* --- CẤU HÌNH KHI IN (QUAN TRỌNG) --- */
+        @media print {
+            body { 
+                background: white; 
+                display: block; 
+                padding: 0; 
+            }
+            .page {
+                width: 100%;
+                margin: 0;
+                padding: 10mm 10mm 15mm 10mm;
+                box-shadow: none;
+                border: none;
+                break-after: page; /* Ngắt trang sau mỗi div page */
+            }
+            .page:last-child {
+                break-after: avoid;
+            }
+            /* Ẩn thanh điều khiển khi in */
+            .control-panel { display: none !important; }
+            .page-break { display: none; } /* Trên web dùng margin, khi in tự ngắt */
+            
+            .page-footer {
+                bottom: 5mm;
+                left: 10mm;
+                right: 10mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="control-panel">
+        <button class="btn-control btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" data-tooltip="Về đầu trang">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+        <button class="btn-control btn-print" onclick="window.print()" data-tooltip="In CV">
+            <i class="fa-solid fa-print"></i>
+        </button>
+        <button class="btn-control btn-pdf" onclick="window.print()" data-tooltip="Lưu PDF (Chọn Save as PDF)">
+            <i class="fa-solid fa-file-pdf"></i>
+        </button>
+    </div>
+
+    <div class="page" id="page-vi">
+        <header>
+            <h1>TRẦN TUẤN KHOA</h1>
+            <div class="job-title">ERP & IT Operations Specialist</div>
+            <div class="contact-info">
+                <span><i class="fa-solid fa-location-dot" style="margin-right:5px"></i> Tân Nhựt, Hồ Chí Minh</span>
+                <span><i class="fa-solid fa-cake-candles" style="margin-right:5px"></i> 26/04/1995</span>
+                <span><i class="fa-solid fa-envelope" style="margin-right:5px"></i> trantuankhoabc@gmail.com</span>
+                <span><i class="fa-solid fa-phone" style="margin-right:5px"></i> (+84) 974306100</span>
+                <span><i class="fa-brands fa-linkedin" style="margin-right:5px"></i> linkedin.com/in/trantuankhoabc</span>
+                <span><i class="fa-brands fa-github" style="margin-right:5px"></i> github.com/trantuankhoabc</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Giới thiệu</h2>
+            <p style="text-align: justify; margin: 0;">
+                Chuyên gia CNTT với 6 năm kinh nghiệm trong hệ thống POS và ERP. Thành thạo phần mềm, máy in và hạ tầng mạng. Có niềm đam mê với việc học hỏi công nghệ mới. Là thành viên nhóm hỗ trợ, hợp tác và có khả năng giải quyết vấn đề xuất sắc.
+            </p>
+        </section>
+
+        <section>
+            <h2>Kinh nghiệm làm việc</h2>
+
+            <div class="job-item">
+                <div class="job-header">
+                    <div>
+                        <div class="company">
+                            Công Ty TNHH Musem Vina (MgenTech)
+                            <span class="origin-badge">🇰🇷 Hàn Quốc</span>
+                        </div>
+                        <span class="company-address">Địa chỉ: KIZUNA 3, Huyện Cần Giuộc, Tỉnh Long An</span>
+                    </div>
+                    <div class="duration-team">
+                        <span class="duration">10/2023 – Hiện tại</span>
+                        <span class="team-size">Team size: 1</span>
+                    </div>
+                </div>
+                <div class="position">ERP & IT Operations Specialist</div>
+                <div class="project-desc">
+                    <strong>Dự án:</strong> Triển khai và Tối ưu hóa ERP cho sản xuất linh kiện điện tử. Phụ trách triển khai, tùy chỉnh hệ thống, đảm bảo tích hợp giữa sản xuất, kho và kế toán.
+                </div>
+                
+                <div class="section-sub-title">Nhiệm vụ Quản trị Hệ thống & Hạ tầng (IT Operations):</div>
+                <ul>
+                    <li>Duy trì hoạt động của hệ thống máy tính và mạng LAN/Wi-Fi ở trạng thái tối ưu, ổn định.</li>
+                    <li>Cài đặt, cấu hình và quản lý thiết bị văn phòng (PC, máy in, camera, máy chấm công) và hệ thống trình chiếu.</li>
+                    <li>Đảm bảo an ninh hệ thống thông qua kiểm soát truy cập, chính sách chia sẻ dữ liệu và thực hiện sao lưu định kỳ.</li>
+                    <li>Kiểm tra định kỳ, bảo trì và xử lý sự cố kỹ thuật; Hỗ trợ người dùng thao tác và sử dụng hạ tầng an toàn.</li>
+                    <li>Tư vấn cấu hình phần cứng/phần mềm phù hợp ngân sách; Phối hợp với HCNS đảm bảo hạ tầng làm việc.</li>
+                    <li>Quản lý các phần mềm máy tính và các thiết bị máy tính của công ty.</li>
+                </ul>
+
+                <div class="section-sub-title">Trách nhiệm chính về ERP & Cải tiến:</div>
+                <ul>
+                    <li>Triển khai, tùy chỉnh và bảo trì hệ thống ERP; Thiết kế quy trình vận hành đồng bộ với sản xuất.</li>
+                    <li><strong>Xây dựng quy trình chuẩn (SOP)</strong> cho việc vận hành và bảo trì hệ thống.</li>
+                    <li>Tối ưu hóa quy trình kinh doanh giữa kế toán, sản xuất, kiểm kê và nhân sự.</li>
+                    <li>Tạo cấu trúc BOM, nhật ký tồn kho. Tích hợp dữ liệu từ Excel vào ERP để giảm thiểu lỗi thủ công.</li>
+                    <li>Giải quyết sai lệch dữ liệu sản xuất và xây dựng báo cáo hỗ trợ ra quyết định.</li>
+                </ul>
+                <div class="section-sub-title">Tác động đạt được:</div>
+                <ul>
+                    <li>Giảm 80% lỗi báo cáo thủ công. Tỷ lệ sử dụng ERP tăng >95%.</li>
+                    <li>Nâng cao độ minh bạch và tốc độ ra quyết định nhờ hệ thống báo cáo tự động.</li>
+                </ul>
+            </div>
+
+            <div class="job-item">
+                <div class="company-merged-title">
+                    <div class="company">
+                        Công ty Cổ phần Công nghệ Trường Minh Thịnh
+                        <span class="origin-badge">🇻🇳 Việt Nam</span>
+                    </div>
+                    <span class="company-address">Địa chỉ: KCN Tân Bình, TP.HCM</span>
+                </div>
+                
+                <div class="sub-role">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="position">GIS Developer</div>
+                        <div class="duration-team">
+                            <span class="duration">06/2021 - 07/2023</span>
+                            <span class="team-size">Team size: 2</span>
+                        </div>
+                    </div>
+                    <div class="project-desc">
+                        <strong>Dự án:</strong> Hệ thống Bản đồ Tìm kiếm Vị trí, Điều hướng và Tính toán Lộ trình.
+                    </div>
+                    <ul>
+                        <li>Thiết kế và triển khai các API backend phục vụ truy vấn bản đồ, tối ưu hóa thời gian phản hồi.</li>
+                        <li>Xây dựng giao diện frontend phản hồi nhanh bằng Angular, tích hợp bản đồ tương tác với Leaflet/OpenLayers.</li>
+                        <li>Tham gia quy trình <strong>Agile/Scrum</strong>, thực hiện Code Review chéo để đảm bảo chất lượng mã nguồn.</li>
+                        <li>Sử dụng PostgreSQL với PostGIS để lưu trữ và truy vấn dữ liệu không gian phức tạp.</li>
+                        <li>Xử lý và hiển thị dữ liệu bản đồ theo định dạng GeoJSON.</li>
+                    </ul>
+                </div>
+
+                <div class="sub-role">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="position">POS Technical Support Team Leader</div>
+                        <div class="duration-team">
+                            <span class="duration">08/2019 – 05/2021</span>
+                            <span class="team-size">Team size: 5</span>
+                        </div>
+                    </div>
+                    <div class="project-desc">
+                        <strong>Dự án:</strong> Hỗ trợ kỹ thuật và triển khai phần mềm quản lý bán hàng (Tpos).
+                    </div>
+                    <ul>
+                        <li>Dẫn dắt nhóm kỹ thuật xử lý sự cố máy trạm, đảm bảo <strong>SLA (Cam kết chất lượng dịch vụ)</strong>.</li>
+                        <li>Triển khai, cài đặt POS và tổ chức các buổi đào tạo trực tuyến cho khách hàng.</li>
+                        <li>Phân tích nguyên nhân gốc rễ (Root Cause Analysis) các sự cố lặp lại để đưa ra giải pháp triệt để.</li>
+                        <li>Duy trì mức độ hài lòng cao của khách hàng thông qua hỗ trợ nhiệt tình và chuyên nghiệp.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job-item">
+                <div class="job-header">
+                    <div>
+                        <div class="company">
+                            Phân Viện KH Khí tượng Thủy văn & BĐKH
+                            <span class="origin-badge">🇻🇳 Việt Nam</span>
+                        </div>
+                        <span class="company-address">Địa chỉ: TP.HCM</span>
+                    </div>
+                    <div class="duration-team">
+                        <span class="duration">12/2018 - 04/2019</span>
+                        <span class="team-size">Team size: 4</span>
+                    </div>
+                </div>
+                <div class="position">Researcher GIS</div>
+                <ul>
+                    <li>Phát triển hệ thống tính toán mực nước lũ do triều cường. Số hóa và xử lý dữ liệu bản đồ chính xác.</li>
+                    <li>Phân tích dữ liệu không gian hỗ trợ ra quyết định và biên soạn tài liệu kỹ thuật chi tiết.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Học vấn & Kỹ năng</h2>
+            <div class="education-item" style="margin-bottom: 12px;">
+                <div><strong>Đại học Nông Lâm TP.HCM</strong> - Hệ thống thông tin địa lý</div>
+                <div class="duration">09/2014 – 09/2018 (GPA: 2.89/4)</div>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-row">
+                    <div class="skill-label">Ngôn ngữ & DB:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Python (Django/Flask)</span><span class="tech-tag">TypeScript</span><span class="tech-tag">VueJS</span><span class="tech-tag">NodeJS</span><span class="tech-tag">SQL (PostgreSQL)</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Công cụ & GIS:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag">VS Code</span><span class="tech-tag">PyCharm</span><span class="tech-tag">Docker</span><span class="tech-tag">Postman</span><span class="tech-tag">GIS (ArcGIS/QGIS)</span><span class="tech-tag">Git</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Kỹ năng mềm:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag soft-tag">Giải quyết vấn đề</span><span class="tech-tag soft-tag">Làm việc nhóm</span><span class="tech-tag soft-tag">Tư duy phản biện</span><span class="tech-tag soft-tag">Quản lý thời gian</span><span class="tech-tag soft-tag">Thích nghi nhanh</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Chuyên môn khác:</div>
+                    <div class="skill-content">
+                        Quản trị hệ thống ERP (Ecount, Tpos), Quản trị mạng, Xây dựng quy trình (SOP).
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="page-footer">
+            <span class="copyright">© 2025 Trần Tuấn Khoa - Bảo lưu mọi quyền</span>
+            <span class="page-number">Trang 1/2</span>
+        </div>
+    </div>
+
+    <div class="page" id="page-en">
+        <header>
+            <h1>TRAN TUAN KHOA</h1>
+            <div class="job-title">ERP & IT Operations Specialist</div>
+            <div class="contact-info">
+                <span><i class="fa-solid fa-location-dot" style="margin-right:5px"></i> Tan Nhut, Ho Chi Minh</span>
+                <span><i class="fa-solid fa-cake-candles" style="margin-right:5px"></i> 26/04/1995</span>
+                <span><i class="fa-solid fa-envelope" style="margin-right:5px"></i> trantuankhoabc@gmail.com</span>
+                <span><i class="fa-solid fa-phone" style="margin-right:5px"></i> (+84) 974306100</span>
+                <span><i class="fa-brands fa-linkedin" style="margin-right:5px"></i> linkedin.com/in/trantuankhoabc</span>
+                <span><i class="fa-brands fa-github" style="margin-right:5px"></i> github.com/trantuankhoabc</span>
+            </div>
+        </header>
+
+        <section>
+            <h2>Summary</h2>
+            <p style="text-align: justify; margin: 0;">
+                IT professional with 6 years of experience in POS and ERP systems. Skilled in software, printers, and network infrastructure. Passionate about learning new technologies. A supportive and collaborative team player with strong problem-solving abilities.
+            </p>
+        </section>
+
+        <section>
+            <h2>Work Experience</h2>
+
+            <div class="job-item">
+                <div class="job-header">
+                    <div>
+                        <div class="company">
+                            Cong Ty TNHH Musem Vina (MgenTech)
+                            <span class="origin-badge">🇰🇷 Korea</span>
+                        </div>
+                        <span class="company-address">Address: KIZUNA 3, Can Giuoc District, Long An</span>
+                    </div>
+                    <div class="duration-team">
+                        <span class="duration">Oct 2023 – Present</span>
+                        <span class="team-size">Team size: 1</span>
+                    </div>
+                </div>
+                <div class="position">ERP & IT Operations Specialist</div>
+                <div class="project-desc">
+                    <strong>Project:</strong> ERP Implementation & Optimization for Electronics Manufacturing. Led the implementation and customization ensuring seamless integration across production, inventory, and accounting workflows.
+                </div>
+                
+                <div class="section-sub-title">System Administration & IT Infrastructure:</div>
+                <ul>
+                    <li>Maintain computer systems, LAN/Wi-Fi networks in optimal and stable condition.</li>
+                    <li>Install, configure, and manage office equipment (PCs, printers, cameras, attendance machines) and projection systems.</li>
+                    <li>Ensure system security via access control, data sharing policies, and regular backups.</li>
+                    <li>Conduct periodic checks, maintenance, and troubleshooting; Guide users on safe IT infrastructure usage.</li>
+                    <li>Consult on hardware/software configuration based on budget; Coordinate with HR for workplace IT facilities.</li>
+                    <li>Manage company computer software and hardware equipment.</li>
+                </ul>
+
+                <div class="section-sub-title">ERP Responsibilities & Enhancements:</div>
+                <ul>
+                    <li>Implemented, customized, and maintained ERP systems. Designed operational workflows to synchronize production.</li>
+                    <li><strong>Developed Standard Operating Procedures (SOPs)</strong> for system operation and maintenance.</li>
+                    <li>Optimized business processes across accounting, manufacturing, inventory, and HR functions.</li>
+                    <li>Created structured BOMs, inventory logs. Integrated BOM data from Excel into ERP.</li>
+                    <li>Resolved data inconsistencies in production and developed real-time decision-support reports.</li>
+                </ul>
+                <div class="section-sub-title">Impact:</div>
+                <ul>
+                    <li>Reduced manual reporting errors by 80%. Improved ERP adoption rate >95%.</li>
+                    <li>Enhanced transparency and decision-making speed via automated reports.</li>
+                </ul>
+            </div>
+
+            <div class="job-item">
+                <div class="company-merged-title">
+                    <div class="company">
+                        Truong Minh Thinh Technology JSC
+                        <span class="origin-badge">🇻🇳 Vietnam</span>
+                    </div>
+                    <span class="company-address">Address: Tan Binh Ind. Park, HCMC</span>
+                </div>
+                
+                <div class="sub-role">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="position">GIS Developer</div>
+                        <div class="duration-team">
+                            <span class="duration">Jun 2021 – Jul 2023</span>
+                            <span class="team-size">Team size: 2</span>
+                        </div>
+                    </div>
+                    <div class="project-desc">
+                        <strong>Project:</strong> Map System for Location Search, Navigation, and Routing.
+                    </div>
+                    <ul>
+                        <li>Designed and implemented backend APIs for map queries and routing, optimizing response time.</li>
+                        <li>Built a responsive frontend with Angular, integrating interactive maps using Leaflet/OpenLayers.</li>
+                        <li>Participated in <strong>Agile/Scrum</strong> workflows and conducted Code Reviews to ensure code quality.</li>
+                        <li>Utilized PostgreSQL with PostGIS to store and query complex spatial data.</li>
+                        <li>Processed and rendered map data in GeoJSON format; optimized spatial queries.</li>
+                    </ul>
+                </div>
+
+                <div class="sub-role">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div class="position">POS Technical Support Team Leader</div>
+                        <div class="duration-team">
+                            <span class="duration">Aug 2019 – May 2021</span>
+                            <span class="team-size">Team size: 5</span>
+                        </div>
+                    </div>
+                    <div class="project-desc">
+                        <strong>Project:</strong> Technical Support for POS Software (Tpos).
+                    </div>
+                    <ul>
+                        <li>Led the technical team in workstation tasks, ensuring strict adherence to <strong>SLAs (Service Level Agreements)</strong>.</li>
+                        <li>Deployed POS systems and conducted online training sessions for clients.</li>
+                        <li>Performed Root Cause Analysis for recurring issues to provide permanent solutions.</li>
+                        <li>Maintained high customer satisfaction through professional and timely support.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="job-item">
+                <div class="job-header">
+                    <div>
+                        <div class="company">
+                            Vietnam Institute of Meteorology & Climate Change
+                            <span class="origin-badge">🇻🇳 Vietnam</span>
+                        </div>
+                        <span class="company-address">Address: Ho Chi Minh City</span>
+                    </div>
+                    <div class="duration-team">
+                        <span class="duration">Dec 2018 – Apr 2019</span>
+                        <span class="team-size">Team size: 4</span>
+                    </div>
+                </div>
+                <div class="position">Researcher GIS</div>
+                <ul>
+                    <li>Developed a system to calculate flood levels. Digitized and processed accurate map data.</li>
+                    <li>Analyzed spatial data for decision-making and authored detailed technical documentation.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Education & Skills</h2>
+            <div class="education-item" style="margin-bottom: 12px;">
+                <div><strong>Nong Lam University (Vietnam)</strong> - Geographic Information Systems</div>
+                <div class="duration">Sep 2014 – Sep 2018 (GPA: 2.89/4)</div>
+            </div>
+            
+            <div class="skills-grid">
+                <div class="skill-row">
+                    <div class="skill-label">Languages & DB:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag">HTML</span><span class="tech-tag">CSS</span><span class="tech-tag">JavaScript</span><span class="tech-tag">Python (Django/Flask)</span><span class="tech-tag">TypeScript</span><span class="tech-tag">VueJS</span><span class="tech-tag">NodeJS</span><span class="tech-tag">SQL (PostgreSQL)</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Tools & GIS:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag">VS Code</span><span class="tech-tag">PyCharm</span><span class="tech-tag">Docker</span><span class="tech-tag">Postman</span><span class="tech-tag">GIS (ArcGIS/QGIS)</span><span class="tech-tag">Git</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Soft Skills:</div>
+                    <div class="skill-content">
+                        <span class="tech-tag soft-tag">Problem Solving</span><span class="tech-tag soft-tag">Teamwork</span><span class="tech-tag soft-tag">Critical Thinking</span><span class="tech-tag soft-tag">Time Management</span><span class="tech-tag soft-tag">Adaptability</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-label">Other Skills:</div>
+                    <div class="skill-content">
+                        ERP Management (Ecount, Tpos), Network Admin, SOP Development.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="page-footer">
+            <span class="copyright">© 2025 Tran Tuan Khoa - All rights reserved</span>
+            <span class="page-number">Page 2/2</span>
+        </div>
+    </div>
+
+</body>
+</html>
